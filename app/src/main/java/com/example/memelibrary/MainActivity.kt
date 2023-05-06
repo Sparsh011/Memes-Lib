@@ -24,9 +24,9 @@ class MainActivity : AppCompatActivity() {
 
         button.setOnClickListener{
             pb.visibility = View.VISIBLE
-            val memesLib = MemesLib(applicationContext)
+            val memesLib = MemesLib()
 
-            memesLib.getMultipleMemes(5) { memes ->
+            memesLib.getMultipleMemes(3) { memes ->
                 if (memes == null){
                     runOnUiThread{
                         Toast.makeText(this@MainActivity, "Unable To Fetch Memes!", Toast.LENGTH_SHORT).show()
@@ -35,6 +35,7 @@ class MainActivity : AppCompatActivity() {
 
                 memes?.let {
                     runOnUiThread{
+                        Toast.makeText(applicationContext, "${memes.count}", Toast.LENGTH_SHORT).show()
                         pb.visibility = View.GONE
                         Glide.with(this@MainActivity)
                             .load(memes.memes[0].url)
@@ -46,6 +47,7 @@ class MainActivity : AppCompatActivity() {
 //            memesLib.getSingleMeme { response ->
 //                response?.let { meme ->
 //                    runOnUiThread{
+//                        Toast.makeText(applicationContext, "Got a single meme", Toast.LENGTH_SHORT).show()
 //                        pb.visibility = View.GONE
 //                        Glide.with(this@MainActivity)
 //                            .load(meme.url)

@@ -1,6 +1,5 @@
 package com.example.meme_lib.util
 
-import android.content.Context
 import com.example.meme_lib.network.ApiService
 import com.example.meme_lib.network.Meme
 import com.example.meme_lib.network.Memes
@@ -8,7 +7,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class MemesLib(private val context: Context) {
+class MemesLib {
     private val retrofitInstance = ApiService()
 
     fun getMultipleMemes(count: Int, callback: (Memes?) -> Unit) {
