@@ -9,4 +9,7 @@ interface ApiInterface {
     suspend fun getMemes(
         @Path("count") limit: Int
     ) : Response<Memes>
+
+    @GET("gimme")
+    suspend fun getMeme() : Response<Meme>
 }

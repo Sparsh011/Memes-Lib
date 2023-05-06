@@ -21,13 +21,16 @@ class MainActivity : AppCompatActivity() {
         val pb = findViewById<ProgressBar>(R.id.pb)
         pb.visibility = View.GONE
 
+
         button.setOnClickListener{
             pb.visibility = View.VISIBLE
-            val memesLib = MemesLib()
+            val memesLib = MemesLib(applicationContext)
 
             memesLib.getMultipleMemes(5) { memes ->
                 if (memes == null){
-                    Toast.makeText(this@MainActivity, "Unable To Fetch Memes!", Toast.LENGTH_SHORT).show()
+                    runOnUiThread{
+                        Toast.makeText(this@MainActivity, "Unable To Fetch Memes!", Toast.LENGTH_SHORT).show()
+                    }
                 }
 
                 memes?.let {
@@ -39,6 +42,17 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
             }
+
+//            memesLib.getSingleMeme { response ->
+//                response?.let { meme ->
+//                    runOnUiThread{
+//                        pb.visibility = View.GONE
+//                        Glide.with(this@MainActivity)
+//                            .load(meme.url)
+//                            .into(img)
+//                    }
+//                }
+//            }
         }
     }
 }

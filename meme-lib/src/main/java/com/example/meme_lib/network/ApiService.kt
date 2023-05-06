@@ -46,4 +46,8 @@ class ApiService {
     suspend fun getMemes(limit : Int) : Response<Memes>{
         return api.getMemes(limit)
     }
+
+    suspend fun getMeme() : Response<Meme>{
+        return api.getMeme()
+    }
 }
