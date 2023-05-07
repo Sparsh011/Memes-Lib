@@ -1,6 +1,7 @@
 package com.example.memelibrary
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
@@ -22,39 +23,24 @@ class MainActivity : AppCompatActivity() {
         pb.visibility = View.GONE
 
 
-        button.setOnClickListener{
+        button.setOnClickListener {
             pb.visibility = View.VISIBLE
             val memesLib = MemesLib()
 
-            memesLib.getMultipleMemes(3) { memes ->
-                if (memes == null){
-                    runOnUiThread{
-                        Toast.makeText(this@MainActivity, "Unable To Fetch Memes!", Toast.LENGTH_SHORT).show()
-                    }
-                }
-
-                memes?.let {
-                    runOnUiThread{
-                        Toast.makeText(applicationContext, "${memes.count}", Toast.LENGTH_SHORT).show()
-                        pb.visibility = View.GONE
-                        Glide.with(this@MainActivity)
-                            .load(memes.memes[0].url)
-                            .into(img)
-                    }
-                }
-            }
-
-//            memesLib.getSingleMeme { response ->
-//                response?.let { meme ->
-//                    runOnUiThread{
-//                        Toast.makeText(applicationContext, "Got a single meme", Toast.LENGTH_SHORT).show()
-//                        pb.visibility = View.GONE
-//                        Glide.with(this@MainActivity)
-//                            .load(meme.url)
-//                            .into(img)
-//                    }
-//                }
+//            memesLib.getMultipleMemes(3) { response ->
+//                val memes = response!!.memes // necessary
+//
+//                Glide.with(this@MainActivity)
+//                    .load(memes[0].url)
+//                    .into(img)
 //            }
+
+            memesLib.getSingleMeme { response ->
+                val meme = response!!
+                Glide.with(this@MainActivity)
+                    .load(meme.url)
+                    .into(img)
+            }
         }
     }
 }

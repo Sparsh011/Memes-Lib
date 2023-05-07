@@ -3,9 +3,7 @@ package com.example.meme_lib.util
 import com.example.meme_lib.network.ApiService
 import com.example.meme_lib.network.Meme
 import com.example.meme_lib.network.Memes
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 class MemesLib {
     private val retrofitInstance = ApiService()
@@ -16,10 +14,18 @@ class MemesLib {
                 val response = retrofitInstance.getMemes(count)
                 if (response.isSuccessful) {
                     val memes = response.body()
-                    callback(memes)
+                    withContext(Dispatchers.Main) {
+                        callback(memes)
+                        return@withContext
+                    }
                 }
             } catch (e: Exception) {
-                callback(null)
+                withContext(Dispatchers.Main) {
+                    callback(null)
+                    return@withContext
+                }
+            } finally {
+                coroutineContext.cancel()
             }
         }
     }
@@ -30,10 +36,18 @@ class MemesLib {
                 val response = retrofitInstance.getMeme()
                 if (response.isSuccessful) {
                     val meme = response.body()
-                    callback(meme)
+                    withContext(Dispatchers.Main) {
+                        callback(meme)
+                        return@withContext
+                    }
                 }
             } catch (e: Exception) {
-                callback(null)
+                withContext(Dispatchers.Main) {
+                    callback(null)
+                    return@withContext
+                }
+            } finally {
+                coroutineContext.cancel()
             }
         }
     }
