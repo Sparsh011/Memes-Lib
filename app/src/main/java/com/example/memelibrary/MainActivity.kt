@@ -27,20 +27,21 @@ class MainActivity : AppCompatActivity() {
             pb.visibility = View.VISIBLE
             val memesLib = MemesLib()
 
-//            memesLib.getMultipleMemes(3) { response ->
+//            memesLib.getMultipleMemes(4) { response ->
 //                val memes = response!!.memes // necessary
+//                Toast.makeText(applicationContext, "${memes.size}", Toast.LENGTH_SHORT).show()
 //
 //                Glide.with(this@MainActivity)
 //                    .load(memes[0].url)
 //                    .into(img)
 //            }
 
-            memesLib.getSingleMeme { response ->
-                val meme = response!!
-                Glide.with(this@MainActivity)
-                    .load(meme.url)
-                    .into(img)
-            }
+//            memesLib.getSingleMeme { response ->
+//                val meme = response!!
+//                Glide.with(this@MainActivity)
+//                    .load(meme.url)
+//                    .into(img)
+//            }
         }
     }
 }
