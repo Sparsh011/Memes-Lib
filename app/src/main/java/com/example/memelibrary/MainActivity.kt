@@ -26,6 +26,28 @@ class MainActivity : AppCompatActivity() {
         button.setOnClickListener {
             pb.visibility = View.VISIBLE
             val memesLib = MemesLib()
+//            val count = 5
+//            memesLib.getMultipleMemes(count = count) { response ->
+//                if (response?.memes != null) {
+//                    val memes = response.memes
+//                    // Handle UI using memes list declared above
+//                    Glide.with(this@MainActivity)
+//                        .load(memes[0].url)
+//                        .into(img)
+//                } else {
+//                    // Handle null response
+//                }
+//            }
+            memesLib.getSingleMeme { response ->
+                if (response != null) {
+                    Glide.with(this@MainActivity)
+                        .load(response.url)
+                        .into(img)
+                    // Handle UI here
+                } else {
+                    // Handle null response
+                }
+            }
 
 //            memesLib.getMultipleMemes(4) { response ->
 //                val memes = response!!.memes // necessary

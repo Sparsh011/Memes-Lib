@@ -18,6 +18,11 @@ class MemesLib {
                         callback(memes)
                         return@withContext
                     }
+                } else {
+                    withContext(Dispatchers.Main) {
+                        callback(null)
+                        return@withContext
+                    }
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
@@ -38,6 +43,12 @@ class MemesLib {
                     val meme = response.body()
                     withContext(Dispatchers.Main) {
                         callback(meme)
+                        return@withContext
+                    }
+                }
+                else{
+                    withContext(Dispatchers.Main){
+                        callback(null)
                         return@withContext
                     }
                 }
